@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+  </head>
+  <body>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Sensor 1</th>
+            <th>Sensor 2</th>
+            <th>DateTime</th>
+          </tr>
+        </thead>
+        <tbody id="data-table">
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+          function formatTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        const ws = new WebSocket('ws://localhost:10000/realtime-data');
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const tableBody = document.getElementById('data-table');
+            tableBody.innerHTML = ''; // Clear the table
+
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.sensor_1}</td>
+                    <td>${row.sensor_2}</td>
+                    <td>${formatTimestamp(row.timestamp)}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        };
+
+        ws.onclose = () => {
+            document.getElementById('data-table').innerText = 'Connection closed';
+        };
+    </script>
+
+  </body>
+</html>
