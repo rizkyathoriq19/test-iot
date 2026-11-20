@@ -4,8 +4,8 @@
 
 PZEM004Tv30 pzem(4, 5); // Software Serial pin 4 (RX) & 5 (TX)
 
-const char* ssid = "Mus";  //ssid wifi (have internet)
-const char* password = "mustofa11"; //password wifi
+const char* ssid = "YOUR_WIFI_SSID";  //ssid wifi (have internet)
+const char* password = "YOUR_WIFI_PASSWORD"; //password wifi
 
 const char* websocket_server_host = "127.0.0.1";      //  IP atau domain dari server WebSocket dari nodejs
 const uint16_t websocket_server_port = 10000;         //  port WebSocket server dari nodejs

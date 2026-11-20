@@ -4,8 +4,8 @@
 
 PZEM004Tv30 pzem(4, 5); // Software Serial pin 4 (RX) & 5 (TX)
 
-const char* ssid = "Mus";  //ssid wifi (have internet)
-const char* password = "mustofa11"; //password wifi
+const char* ssid = "YOUR_WIFI_SSID";  //ssid wifi (have internet)
+const char* password = "YOUR_WIFI_PASSWORD"; //password wifi
 
 // Create WebSocket server on port 81
 WebSocketsServer webSocket = WebSocketsServer(10000); // create websocket server with port 10000
